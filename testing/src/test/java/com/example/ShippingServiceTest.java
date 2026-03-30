@@ -131,5 +131,22 @@ class ShippingServiceTest {
     void test25() { // nom (Trung bình)
         assertEquals(5100000.0, service.calculateFee(25, 250, false));
     }
-    
+
+    // Kiểm thử với độ phủ C2
+    @Test
+    void testPath1() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.calculateFee(0, 0, true);
+        });
+    }
+
+    @Test
+    void testPath2() {
+        assertEquals(270000.0, service.calculateFee(5.0, 10, false));
+    }
+
+    @Test
+    void testPath3() {
+        assertEquals(350000.0, service.calculateFee(15.0, 10, true));
+    }
 }
