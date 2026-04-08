@@ -149,4 +149,40 @@ class ShippingServiceTest {
     void testPath3() {
         assertEquals(350000.0, service.calculateFee(15.0, 10, true));
     }
+
+
+    // Kiểm thử dòng dữ liệu
+@Test
+    void shouldThrowException_When_WeightIsInvalid() {
+        // Path 1: weight > 50
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.calculateFee(60.0, 10, true);
+        });
+    }
+
+    @Test
+    void shouldCalculateFee_When_PackageIsHeavyAndFragile() {
+        // Path 2: weight > 10, isFragile = true
+        assertEquals(190000.0, service.calculateFee(20.0, 2, true));
+    }
+
+    @Test
+    void shouldCalculateFee_When_PackageIsLightAndFragile() {
+        // Path 3: weight <= 10, isFragile = true
+        assertEquals(145000.0, service.calculateFee(5.0, 2, true));
+    }
+
+    @Test
+    void shouldCalculateFee_When_PackageIsHeavyAndNotFragile() {
+        // Path 4: weight > 10, isFragile = false
+        assertEquals(140000.0, service.calculateFee(20.0, 2, false));
+    }
+
+    @Test
+    void shouldCalculateFee_When_PackageIsLightAndNotFragile() {
+        // Path 5: weight <= 10, isFragile = false
+        assertEquals(110000.0, service.calculateFee(5.0, 2, false));
+    }
+
+
 }
